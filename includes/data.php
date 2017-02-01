@@ -47,7 +47,7 @@ $catalog[103] = [
     "isbn" => '978-0201485677'
 ];
 $catalog[104] = [
-    "title" => "The Clean Coder: A Code of Conduct for Professional Programmers",
+    "title" => "Clean Coder: A Code of Conduct for Professional Programmers",
     "img" => "img/media/clean_coder.jpg",
     "genre" => "Tech",
     "format" => "Audio",

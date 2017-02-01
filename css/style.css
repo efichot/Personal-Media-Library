@@ -98,6 +98,7 @@ body {
 /*
  * Addresses `outline` inconsistency between Chrome and other browsers.
  */
+
 a {
     color: #3888c2;
 }
@@ -114,6 +115,10 @@ a:active,
 a:hover {
     outline: 0;
     color: #285f87;
+}
+
+#linkCatalog {
+    text-decoration: none;
 }
 
 /* ==========================================================================

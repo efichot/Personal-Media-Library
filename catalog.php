@@ -1,6 +1,6 @@
 <?php
 include("includes/data.php");
-include("includes/function.php");
+include("includes/functions.php");
 if (isset($_GET["cat"]))
 {
     if ($_GET["cat"] == "books"){
@@ -14,17 +14,26 @@ if (isset($_GET["cat"]))
         $currentPage = "Music";
     }
 }
-else
+else {
     $pageTitle = "Catalog";
+    $currentPage = null;
+}
 include("includes/header.php"); ?>
 <div class="section catalog page">
     <div class="wrapper">
-        <h1><?php echo $pageTitle ?></h1>
+        <h1><?php
+            if ($currentPage != null)
+            {
+                echo "<a href='catalog.php' id='linkCatalog'>Click here for full catalog</a> </br>";
+            }
+            echo $pageTitle ?>
+        </h1>
         <ul class="items">
             <?php
-            foreach ($catalog as $id => $item)
+            $catalogByType = ft_catalog_by_type($catalog, $currentPage);
+            foreach ($catalogByType as $id)
             {
-                echo ft_get_html_by_id($id, $item);
+                echo ft_get_html_by_id($id, $catalog[$id]);
             }
             ?>
         </ul>

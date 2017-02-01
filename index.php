@@ -1,6 +1,6 @@
 <?php
 include("includes/data.php");
-include("includes/function.php");
+include("includes/functions.php");
 $pageTitle = "Personal Media Library";
 $currentPage = null;
 include("includes/header.php");?>
@@ -11,9 +11,10 @@ include("includes/header.php");?>
 				<h2>May we suggest something?</h2>
 					<ul class="items">
 						<?php
-						foreach ($catalog as $id => $item)
+						$random = array_rand($catalog, 4);
+						foreach ($random as $id)
 						{
-							echo ft_get_html_by_id($id, $item);
+							echo ft_get_html_by_id($id, $catalog[$id]);
 						}
 						?>
 					</ul>
