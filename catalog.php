@@ -24,7 +24,7 @@ include("includes/header.php"); ?>
         <h1><?php
             if ($currentPage != null)
             {
-                echo "<a href='catalog.php' id='linkCatalog'>Click here for full catalog</a> </br>";
+                echo "<a href='catalog.php' id='linkCatalog'>Click here for full catalog </a>&gt; ";
             }
             echo $pageTitle ?>
         </h1>
