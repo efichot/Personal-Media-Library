@@ -1,6 +1,6 @@
 <?php
-include("includes/data.php");
 include("includes/functions.php");
+$catalog = ft_get_full_catalog();
 $pageTitle = "Personal Media Library";
 $currentPage = null;
 include("includes/header.php");?>

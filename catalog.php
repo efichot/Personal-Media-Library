@@ -1,6 +1,6 @@
 <?php
-include("includes/data.php");
 include("includes/functions.php");
+$catalog = ft_get_full_catalog();
 if (isset($_GET["cat"]))
 {
     if ($_GET["cat"] == "books"){

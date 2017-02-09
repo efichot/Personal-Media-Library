@@ -1,4 +1,17 @@
 <?php
+function ft_get_full_catalog()
+{
+    include("connection.php");
+    try {
+        $result = $db->query("SELECT title, category, img FROM media");
+    } catch (Exception $e) {
+        echo "Bad query" . $e->getMessage();
+        exit;
+    }
+    $catalog = $result->fetchAll(PDO::FETCH_ASSOC);
+    return $catalog;
+}
+
 function ft_get_html_by_id($id, $item)
 {
     $returns =  "<li>
