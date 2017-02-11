@@ -1,15 +1,89 @@
 <?php
-function ft_get_full_catalog()
+function ft_count_item_in_category($category = null) //optional parameter
+{
+    include("connection.php");
+    $sql = "SELECT COUNT(media_id) FROM Media";
+    try {
+        if ($category) {
+            $category = strtolower($category);
+            $result = $db->prepare($sql . " WHERE LOWER(Media.category) = ?");
+            $result->bindParam(1, $category, PDO::PARAM_STR);
+        } else {
+            $result = $db->prepare($sql);
+        }
+        $result->execute();
+    } catch (Exception $e) {
+        echo "Bad Query" . $e->getMessage();
+    }
+    $count = $result->fetchColumn(0);
+    return ($count);
+}
+
+function ft_get_full_catalog($limit = null, $offset = 0)
 {
     include("connection.php");
     try {
-        $result = $db->query("SELECT media_id, title, category, img FROM media");
+        $sql = "SELECT media_id, title, category, img
+                FROM media
+                ORDER BY title";
+        if (is_integer($limit)) {
+            $result = $db->prepare($sql . " LIMIT ? OFFSET ?");
+            $result->bindParam(1, $limit, PDO::PARAM_INT);
+            $result->bindParam(2, $offset, PDO::PARAM_INT);
+        } else {
+            $result = $db->prepare($sql);
+        }
+        $result->execute();
     } catch (Exception $e) {
         echo "Bad query" . $e->getMessage();
         exit;
     }
     $catalog = $result->fetchAll(PDO::FETCH_ASSOC);
     return $catalog;
+}
+
+function ft_get_items_category($category, $limit = null, $offset = 0)
+{
+    include("connection.php");
+    try {
+        $sql =
+            "SELECT media_id, title, category, img
+            FROM media
+            WHERE LOWER(media.category) = ?
+            ORDER BY title";
+        if (is_integer($limit)) {
+            $result = $db->prepare($sql . " LIMIT ? OFFSET ?");
+            $result->bindParam(1, $category, PDO::PARAM_STR);
+            $result->bindParam(2, $limit, PDO::PARAM_INT);
+            $result->bindParam(3, $offset, PDO::PARAM_INT);
+        } else {
+            $result = $db->prepare($sql);
+            $result->bindParam(1, $category, PDO::PARAM_STR);
+        }
+        $result->execute();
+    } catch (Exception $e) {
+        echo "Bad query" . $e->getMessage();
+        exit;
+    }
+    $catalog = $result->fetchAll(PDO::FETCH_ASSOC);
+    return $catalog;
+}
+
+function ft_get_rdm_4items()
+{
+    include("connection.php");
+    try {
+        $result = $db->query(
+        "SELECT media_id, title, category, img
+        FROM media
+        ORDER BY RAND()
+        LIMIT 4");
+    } catch (Exception $e) {
+        echo "Bad query" . $e->getMessage();
+        exit;
+    }
+    $random = $result->fetchAll(PDO::FETCH_ASSOC);
+    return $random;
 }
 
 function ft_get_one_element($id)
@@ -47,7 +121,7 @@ function ft_get_one_element($id)
     return $item;
 }
 
-function ft_get_html_by_id($id, $item)
+function ft_get_html_by_id($item)
 {
     $returns =  "<li>
                     <a href='detail.php?id=" . $item["media_id"] . "'>

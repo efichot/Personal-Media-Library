@@ -1,6 +1,5 @@
 <?php
 include("includes/functions.php");
-$catalog = ft_get_full_catalog();
 $pageTitle = "Personal Media Library";
 $currentPage = null;
 include("includes/header.php");?>
@@ -11,10 +10,10 @@ include("includes/header.php");?>
 				<h2>May we suggest something?</h2>
 					<ul class="items">
 						<?php
-						$random = array_rand($catalog, 4);
-						foreach ($random as $id)
+						$random = ft_get_rdm_4items();
+						foreach ($random as $item)
 						{
-							echo ft_get_html_by_id($id, $catalog[$id]);
+							echo ft_get_html_by_id($item);
 						}
 						?>
 					</ul>

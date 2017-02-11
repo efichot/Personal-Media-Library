@@ -394,7 +394,7 @@ INSERT INTO `Media` VALUES (25,'Casablanca 70th Anniversary: Special Edition','i
 INSERT INTO `Media` VALUES (26,'Mission: Impossible ','img/media/mission_impossible.jpg',1,'DVD',1996,'Movies');
 INSERT INTO `Media` VALUES (27,'Frozen','img/media/frozen.jpg',20,'DVD',2013,'Movies');
 INSERT INTO `Media` VALUES (28,'Star Wars: The Complete Saga (Episodes I-VI)','img/media/star_wars.jpg',4,'Blu-ray',2015,'Movies');
-INSERT INTO `Media` VALUES (29,'Star Wars: The Ultimate Soundtrack Collection','img/media/soundtrack_star_wars',54,'CD',2016,'Music');
+INSERT INTO `Media` VALUES (29,'Star Wars: The Ultimate Soundtrack Collection','img/media/soundtrack_star_wars.jpg',54,'CD',2016,'Music');
 INSERT INTO `Media` VALUES (30,'Pentatonix','img/media/pentatonix.jpg',49,'CD',2015,'Music');
 INSERT INTO `Media` VALUES (31,'Ultimate Sinatra','img/media/sinatra.jpg',36,'Vinyl',2015,'Music');
 INSERT INTO `Media` VALUES (32,'Led Zeppelin I (Remastered Original Vinyl)','img/media/led_zeppelin.jpg',49,'Vinyl',2014,'Music');
