@@ -121,6 +121,35 @@ function ft_get_one_element($id)
     return $item;
 }
 
+function ft_get_array($category = null) {
+    $category = strtolower($category);
+    include("connection.php");
+
+    $sql =  "SELECT genre, category
+            FROM Genres
+            JOIN Genre_Categories
+            ON Genres.genre_id = Genre_Categories.genre_id";
+    try {
+        if (!empty($category)) {
+            $sql .= " WHERE LOWER(category) = ?";
+            $sql .= "ORDER BY genre";
+            $result = db->prepare($sql);
+            $result->bindParam(1, $category, PDO::PARAM_STR);
+        } else {
+            $sql .= "ORDER BY genre";
+            $result = db->prepare($sql);
+        }
+    } catch (Exception $e) {
+        echo "bad query" . $e->getMessage();
+    }
+    $result->execute();
+    $genreArray = [];
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        $genreArray[$row["category"]][] = $row["genre"];
+    }
+    return ($genreArray);
+}
+
 function ft_get_html_by_id($item)
 {
     $returns =  "<li>
