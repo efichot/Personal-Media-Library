@@ -1,10 +1,14 @@
 <?php
-function ft_count_item_in_category($category = null) //optional parameter
+function ft_count_item_in_category($category = null, $search = null) //optional parameter
 {
     include("connection.php");
     $sql = "SELECT COUNT(media_id) FROM Media";
     try {
-        if ($category) {
+        if ($search) {
+            $result->prepare($sql . " WHERE title LIKE ?");
+            $result->bindValue(1, "%" . $search . "%", PDO::PARAM_STR);
+        }
+        else if ($category) {
             $category = strtolower($category);
             $result = $db->prepare($sql . " WHERE LOWER(Media.category) = ?");
             $result->bindParam(1, $category, PDO::PARAM_STR);
@@ -63,6 +67,33 @@ function ft_get_items_category($category, $limit = null, $offset = 0)
         $result->execute();
     } catch (Exception $e) {
         echo "Bad query" . $e->getMessage();
+        exit;
+    }
+    $catalog = $result->fetchAll(PDO::FETCH_ASSOC);
+    return $catalog;
+}
+
+function ft_get_items_search($search, $limit = null, $offset = 0)
+{
+    include("connection.php");
+    try {
+        $sql =
+            "SELECT media_id, title, category, img
+            FROM media
+            WHERE title LIKE ?
+            ORDER BY title";
+        if (is_integer($limit)) {
+            $result = $db->prepare($sql . " LIMIT ? OFFSET ?");
+            $result->bindValue(1, "%" . $search . "%", PDO::PARAM_STR);
+            $result->bindParam(2, $limit, PDO::PARAM_INT);
+            $result->bindParam(3, $offset, PDO::PARAM_INT);
+        } else {
+            $result = $db->prepare($sql);
+            $result->bindValue(1, "%" . $search . "%", PDO::PARAM_STR);
+        }
+        $result->execute();
+    } catch (Exception $e) {
+        echo "Enable to retrieve results" . $e->getMessage();
         exit;
     }
     $catalog = $result->fetchAll(PDO::FETCH_ASSOC);
