@@ -1,5 +1,5 @@
 <?php
-include("includes/functions.php");
+include_once("includes/functions.php");
 $itemPerPage = 8;
 if (isset($_GET["cat"]))
 {
@@ -103,4 +103,4 @@ include("includes/header.php"); ?>
         </div>
     </div>
 </div>
-<?php include("includes/footer.php"); ?>
+<?php include_once("includes/footer.php"); ?>
